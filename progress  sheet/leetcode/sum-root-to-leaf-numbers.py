@@ -6,22 +6,19 @@
 #         self.right = right
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        def findPath(root,path):
+        def traverse(root,path):
             path += str(root.val)
-            if not root.left and not root.right:
+            if not root.right and not root.left:
                 return [path]
             
-            val1, val2 = [] , []
-            if root.left:
-                val1 = findPath(root.left,path)
-            if root.right:
-               val2 = findPath(root.right,path)
-
+            val1 = traverse(root.left,path) if root.left else [] 
+            val2 = traverse(root.right,path) if root.right else []
+            
             return val1 + val2
-
-        paths = findPath(root,"")
         total = 0
+        paths = traverse(root,"")
+        
         for path in paths:
             total += int(path)
-        return total
+        return total  
 
