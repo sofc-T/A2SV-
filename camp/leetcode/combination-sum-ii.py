@@ -3,20 +3,20 @@ class Solution:
         ans = []
         candidates.sort()
         
-        def backtrack(idx,comb,total):
+        def backtrack(number_idx,comb,total):
             if total == target:
                 ans.append(comb[:])
                 return
-            if idx >= len(candidates):
+            if number_idx >= len(candidates):
                 return 
-            for i in range(idx,len(candidates)):
-                if total + candidates[i] > target:
+            for idx in range(number_idx,len(candidates)):
+                if total + candidates[idx] > target:
                     break
-                if i > idx and candidates[i] == candidates[i - 1]:
+                if idx > number_idx and candidates[idx] == candidates[idx - 1]:
                     continue
-                total += candidates[i]
-                comb.append(candidates[i])
-                backtrack(i + 1,comb,total)
+                total += candidates[idx]
+                comb.append(candidates[idx])
+                backtrack(idx + 1,comb,total)
                 total -= comb.pop()
             return ans
         return backtrack(0,[],0)
